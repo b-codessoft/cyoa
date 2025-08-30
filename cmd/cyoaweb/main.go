@@ -1,10 +1,10 @@
 package main
 
 import (
-	"encoding/json"
 	"flag"
 	"fmt"
 	"log"
+	"net/http"
 	"os"
 
 	"github.com/b-codessoft/cyoa"
@@ -26,7 +26,8 @@ func main() {
 		log.Fatal(err)
 	}
 
-	h := cyoa.NewHandler(story)
-	fmt.Println("Starting the server on port: %d\n", *port)
+	h := cyoa.NewHandler(story, nil)
+	fmt.Printf("Starting the server on port: %d\n", *port)
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", *port), h))
 
 }
